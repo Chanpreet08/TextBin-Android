@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.telecom.Call;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chat_application_android.R;
+import com.chat_application_android.Response.LoginResponse;
+import com.chat_application_android.Rest.ApiInterface;
+import com.chat_application_android.Rest.RestAPIClient;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -76,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-//                    attemptLogin();
+                     attemptLogin();
                     return true;
                 }
                 return false;
@@ -87,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-//                attemptLogin();
+                  attemptLogin();
             }
         });
 
@@ -95,6 +99,12 @@ public class LoginActivity extends AppCompatActivity {
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    private void attemptLogin(){
+
+
+//        ApiInterface apiService = RestAPIClient.getRetrofitClient().create(ApiInterface.class);
+//        Call<LoginResponse> call = apiService.requestLogin()
+    }
 //    private void populateAutoComplete() {
 //        if (!mayRequestContacts()) {
 //            return;
