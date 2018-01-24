@@ -1,7 +1,7 @@
 package com.chat_application_android.Rest;
 
-import com.chat_application_android.Model.User;
-import com.chat_application_android.Response.LoginResponse;
+import com.chat_application_android.Model.LoginModel;
+import com.chat_application_android.Model.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,6 +13,6 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-    @POST("/auth/login")
-    Call<LoginResponse> requestLogin(@Body User user);
+    @POST("/api/login")
+    Call<LoginResponse> requestLogin(@Body LoginModel loginModel);
 }

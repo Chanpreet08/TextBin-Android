@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by chanpreet on 24/01/18.
  */
 
-public class LoginResponse {
+public class RegisterResponse {
 
     @SerializedName("status")
     private Boolean status;
@@ -15,7 +15,7 @@ public class LoginResponse {
     @SerializedName("token")
     private String token;
 
-    LoginResponse(Boolean status, String msg, String token){
+    RegisterResponse(Boolean status, String msg, String token){
         this.status = status;
         this.msg = msg;
         this.token = token;

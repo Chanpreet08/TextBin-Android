@@ -10,7 +10,7 @@ public class LoginModel {
     private String token;
     private String password;
 
-    LoginModel(String phoneNumber,String password, String token){
+    public LoginModel(String phoneNumber,String password, String token){
         this.phoneNumber = phoneNumber;
         this.token = token;
         this.password = password;

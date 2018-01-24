@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestAPIClient {
 
-    public static final String  BASE_URL="text-bin.herokuapp.com/";
+    public static final String  BASE_URL="https://text-bin.herokuapp.com/";
     public static Retrofit retrofit;
 
     public static Retrofit getRetrofitClient(){

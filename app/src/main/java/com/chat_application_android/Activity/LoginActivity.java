@@ -3,42 +3,28 @@ package com.chat_application_android.Activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.telecom.Call;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.chat_application_android.Model.LoginModel;
+import com.chat_application_android.Model.LoginResponse;
 import com.chat_application_android.R;
-import com.chat_application_android.Response.LoginResponse;
 import com.chat_application_android.Rest.ApiInterface;
 import com.chat_application_android.Rest.RestAPIClient;
 
-import static android.Manifest.permission.READ_CONTACTS;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -63,23 +49,26 @@ public class LoginActivity extends AppCompatActivity {
 //    private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private EditText phoneNumber;
-    private EditText password;
+    private EditText phoneNumberView;
+    private EditText passwordView;
     private View mProgressView;
     private View mLoginFormView;
+    private String phoneNumber;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        phoneNumber = (EditText) findViewById(R.id.phone_number);
+        phoneNumberView = (EditText) findViewById(R.id.phone_number);
 
-        password = (EditText) findViewById(R.id.password);
-        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        passwordView = (EditText) findViewById(R.id.password);
+        passwordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+
                      attemptLogin();
                     return true;
                 }
@@ -101,9 +90,27 @@ public class LoginActivity extends AppCompatActivity {
 
     private void attemptLogin(){
 
+        phoneNumber = phoneNumberView.getText().toString();
+        password = passwordView.getText().toString();
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6OTYwMjk3NjU1OCwiaWF0IjoxNTE2NzE4Mzc2LCJleHAiOjE1MTY4MDQ3NzZ9.c0-fe3UbgCa4DzPmf0Iv8p0VLnE-q8KD1DJ3BaugiLc";
+        final LoginModel loginModel = new LoginModel(phoneNumber,password,token);
+        ApiInterface apiService = RestAPIClient.getRetrofitClient().create(ApiInterface.class);
+        retrofit2.Call<LoginResponse> call = apiService.requestLogin(loginModel);
 
-//        ApiInterface apiService = RestAPIClient.getRetrofitClient().create(ApiInterface.class);
-//        Call<LoginResponse> call = apiService.requestLogin()
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
+                if(response.isSuccessful()){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+            }
+        });
     }
 //    private void populateAutoComplete() {
 //        if (!mayRequestContacts()) {
